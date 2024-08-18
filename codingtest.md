@@ -76,3 +76,78 @@ for i in range(len(word_2)):
 - 원인 : 시간 초과가 계속 발생 
   - 반복문 하나 하면 시간 초과 발생
   - 메모리 제한이 적음. 이런 경우 경우를 나누는 것을 생각해 봐야 겠다..
+### 1251
+```python
+a = list(input())
+b = a
+a.sort()
+print(b)
+```
+- b와 a가 똑같이 나오는 이유는 똑같은 곳을 가르키기 때문 (방어적 복사가 안됨)
+  - 이럴 때는 copy()를 넣어줘야 함.
+```python
+a = list(input())
+b = a.copy()
+a.sort()
+line1 = b.index(a[0])
+line2 = b.index(a[1])
+if b.index(a[0]) == len(b) - 1:
+    if b.index(a[1]) == len(b) - 2:
+        line1 = b.index(a[2])
+        line2 = b.index(a[3])
+    else:
+        line1 = b.index(a[1])
+        line2 = b.index(a[2])
+else:
+    if b.index(a[1]) == len(b) - 1:
+        line2 = b.index(a[2])
+c = b[0:line1 + 1]
+d = b[line1 + 1:line2 + 1]
+e = b[line2 + 1:]
+c.reverse()
+d.reverse()
+e.reverse()
+for i in c:
+    print(i, end="")
+for i in d:
+    print(i, end="")
+for i in e:
+    print(i, end="")
+```
+- 오답
+  - 일단 딱 봐도 안됨.
+  - 인덱스로 하는 것은 아닌 듯
+  - 해답 : 그리디 알고리즘 이용
+    - 그리디 알고리즘이란?
+      - 최선의 선택을 하는 알고리즘
+
+```python
+a = list(input())
+
+tmp = []
+ans = []
+
+a_length = len(a)
+for i in range(1, a_length - 1):
+    for j in range(i + 1, a_length):
+        first = a[:i]
+        second = a[i:j]
+        third = a[j:]
+        first.reverse()
+        second.reverse()
+        third.reverse()
+        tmp.append(first + second + third)
+
+for b in tmp:
+    ans.append(''.join(b))
+
+print(sorted(ans)[0])
+```
+- input()을 list로 받으면 문자 하나하나가 리스트로
+- reverse함수는 index를 거꾸로 해준다.
+  - first+second+third = ['m','b','o','l','e','t','i']
+  - 이런 식으로 문자열 하나씩으로 배열이 만들어짐.
+- append는 배열에다가 넣는 거
+- join은 배열 안의 것을 다 이어 붙이는 것.
+- sorted(배열)은 배열 정리하는 것
+  - 배열 자체는 정렬 안됨.

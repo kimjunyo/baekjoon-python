@@ -151,3 +151,34 @@ print(sorted(ans)[0])
 - join은 배열 안의 것을 다 이어 붙이는 것.
 - sorted(배열)은 배열 정리하는 것
   - 배열 자체는 정렬 안됨.
+
+## 2024.08.20
+```python
+a = int(input())
+student = []
+student_same = []
+for i in range(a):
+  b, c, d, e, f = map(int, input().split())
+  var = [b, c, d, e, f]
+  student.append(var)
+  student_same.append(1)
+
+student_sum = []
+copy = student_same.copy()
+
+student_num = len(student)
+for i in range(student_num):
+  same = 0
+  copy = student_same.copy()
+  for j in range(student_num):
+    for k in range(5):
+      if student[i][k] == student[j][k] and copy[j] == 1:
+        same += 1
+        copy[j] = 0
+  student_sum.append(same)
+
+print(student_sum.index(max(student_sum)) + 1)
+
+```
+- 많은 사람들과 하는 것은 중복이 되지 않으므로 student_same 배열 생성
+- copy를 한 다음 한 번 반복문 돌면 다시 리셋

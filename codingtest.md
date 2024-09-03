@@ -182,3 +182,26 @@ print(student_sum.index(max(student_sum)) + 1)
 ```
 - 많은 사람들과 하는 것은 중복이 되지 않으므로 student_same 배열 생성
 - copy를 한 다음 한 번 반복문 돌면 다시 리셋
+
+## 2024.09.02
+### 1312
+- 이 문제는 경우를 잘 나누면 쉽게 풀림.
+  - 이게 소수점 위에 것을 정리하고(나머지) 그 다음부터 생각했어야 함.
+### 1316
+```python
+a = input()
+b = list(set(a))
+isGroupWord = True
+for j in range(len(a) - 1):
+    if a[j] != a[j + 1] and b.count(a[j]) != 0 and b.count(a[j + 1]) != 0:
+        b.remove(a[j])
+    elif a[j] == a[j + 1] and b.count(a[j]) != 0:
+        pass
+    else:
+        isGroupWord = False
+        break
+```
+- 체크를 꼼꼼히 했어야 한다.
+  - 우선 두 개 중복 체크를 할 때 인덱스에 해당하는 값을 모두 있는지 확인을 했어야 한다.
+  - 안 해서 마지막 인덱스의 것이 확인이 되지 않아 오류 발생
+## 2024.09.03

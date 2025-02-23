@@ -4,12 +4,14 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int[][][] arr = new int[101][101][101];
+    static int[][][] arr = new int[21][21][21];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st;
+        StringBuilder sb;
         while (true) {
+            sb = new StringBuilder();
             st = new StringTokenizer(br.readLine());
             int a = Integer.parseInt(st.nextToken());
             int b = Integer.parseInt(st.nextToken());
@@ -19,7 +21,8 @@ public class Main {
                 return;
             }
 
-            System.out.printf("w(%d, %d, %d) = %d\n", a, b, c, w(a, b, c));
+            sb.append("w(").append(a).append(", ").append(b).append(", ").append(c).append(") = ").append(w(a, b, c));
+            System.out.println(sb);
         }
     }
 
@@ -29,19 +32,19 @@ public class Main {
             return 1;
         }
         if (a > 20 || b > 20 || c > 20) {
-            return w(20, 20, 20);
+            return arr[20][20][20] = w(20, 20, 20);
         }
 
-        if (arr[a + 50][b + 50][c + 50] != 0) {
-            return arr[a + 50][b + 50][c + 50];
+        if (arr[a][b][c] != 0) {
+            return arr[a][b][c];
         }
 
         if (a < b && b < c) {
-            arr[a + 50][b + 50][c + 50] = w(a, b, c - 1) + w(a, b - 1, c - 1) - w(a, b - 1, c);
+            arr[a][b][c] = w(a, b, c - 1) + w(a, b - 1, c - 1) - w(a, b - 1, c);
         } else {
-            arr[a + 50][b + 50][c + 50] = w(a - 1, b, c) + w(a - 1, b - 1, c) + w(a - 1, b, c - 1) - w(a - 1, b - 1, c - 1);
+            arr[a][b][c] = w(a - 1, b, c) + w(a - 1, b - 1, c) + w(a - 1, b, c - 1) - w(a - 1, b - 1, c - 1);
         }
 
-        return arr[a + 50][b + 50][c + 50];
+        return arr[a][b][c];
     }
 }

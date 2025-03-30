@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -76,7 +75,7 @@ public class Main {
 
             visited[currIdx] = true;
             for (Edge edge : adj[currIdx]) {
-                if (dist[edge.index] > dist[currIdx] + edge.value) {
+                if (!visited[edge.index] && dist[edge.index] > dist[currIdx] + edge.value) {
                     dist[edge.index] = dist[currIdx] + edge.value;
                     pq.offer(new Edge(edge.index, dist[edge.index]));
                 }
